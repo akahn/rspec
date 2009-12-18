@@ -26,6 +26,19 @@ module Spec
         have_received(:slice, 5).matches?(@object).should be_false
       end
 
+      it "does match for method with no arguments" do
+        @object.stub!(:length)
+        @object.length
+
+        have_received(:length).matches?(@object).should be_true
+      end
+
+      it "does not match for method with no arguments that is not called" do
+        @object.stub!(:length)
+
+        have_received(:length).matches?(@object).should be_false
+      end
+
       it "should describe itself" do
         @object.stub!(:slice)
         @object.slice(5)
