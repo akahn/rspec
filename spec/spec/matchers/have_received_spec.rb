@@ -39,6 +39,13 @@ module Spec
         have_received(:length).matches?(@object).should be_false
       end
 
+      it "does match for method that takes an argument but is called without one" do
+        @object.stub!(:chomp)
+        @object.chomp
+
+        have_received(:chomp).matches?(@object).should be_true
+      end
+
       it "should describe itself" do
         @object.stub!(:slice)
         @object.slice(5)
